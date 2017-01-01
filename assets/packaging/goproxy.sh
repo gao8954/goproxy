@@ -31,6 +31,11 @@ start() {
     mkdir -p ${log_dir}
     nohup ./goproxy -v=2 -logtostderr=0 -log_dir=${log_dir} >/dev/null 2>&1 &
     echo "${PACKAGE_NAME}."
+    if [ -d '/etc/logrotate.d/' ]; then
+        if [ ! -f '/etc/logrotate.d/goproxy' ]; then
+            echo "Dont Forget: sudo cp $(pwd)/logrotate.conf /etc/logrotate.d/goproxy"
+        fi
+    fi
 }
 
 stop() {
